@@ -1,14 +1,16 @@
 .container {
+  display: flex;
+  position: relative;
   margin-top: 80px;
   &:first-of-type {
     margin-top: 20px;
   }
   img {
-    border: 9px solid black;
+    // border: 9px solid black;
     // border-top: 0;
     margin: 0 auto;
-    margin-right: 5rem;
-    margin-top: -5rem;
+    // margin-right: 5rem;
+    // margin-top: -5rem;
     display: block;
     width: 200px;
     opacity: 0.7;
@@ -17,7 +19,7 @@
 }
 
 .first-box {
-  border: 9px solid black;
+  //   border: 9px solid black;
   width: 90%;
   margin: auto;
 }
@@ -38,4 +40,10 @@
   font-size: 4rem;
   width: 75%;
   margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: block;
+  }
 }
