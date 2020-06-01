@@ -1,7 +1,7 @@
 import React from "react"
 import "../styles/index.scss"
 import Layout from "../components/layout"
-import Head from "../components/Head"
+import Head from "../components/head"
 import water from "./water.png"
 const IndexPage = () => {
   return (
