@@ -6,5 +6,42 @@
 
 module.exports = {
   /* Your site config here */
-  plugins: [],
+  siteMetadata: {
+    title: "Groove Devotion",
+    author: "Ariel Klevecz",
+  },
+  plugins: [
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sass",
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "src",
+        path: `${__dirname}/src/`,
+      },
+    },
+    "gatsby-plugin-sharp",
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          "gatsby-remark-relative-images",
+          {
+            resolve: "gatsby-remark-images",
+            options: {
+              maxWidth: 750,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
+      },
+    },
+    {
+      resolve: "gatsby-source-contentful",
+      options: {
+        spaceId: "rarme25m07ef",
+        accessToken: "l4EQqfH6AaCE-8fRsw37ySoBf6ZD6BQRbrourNKltCA",
+      },
+    },
+  ],
 }

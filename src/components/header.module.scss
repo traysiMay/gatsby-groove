@@ -1,0 +1,56 @@
+.header {
+  font-family: Gotham-Medium;
+}
+
+.title {
+  color: black;
+  font-size: 5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.nav-list {
+  // background: #e8e8e8;
+  position: relative;
+  background: black;
+  height: 100%;
+  min-height: 50px;
+  margin: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+    padding: 1rem;
+    font-size: 5rem;
+  }
+}
+
+.nav-list-hide {
+  * {
+    display: none;
+  }
+}
+
+.nav-list-show {
+  * {
+    display: block;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: red;
+}
+
+.x {
+  position: absolute;
+  right: 18px;
+  font-size: 5rem;
+  color: red;
+  user-select: none;
+  cursor: pointer;
+}

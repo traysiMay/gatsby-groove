@@ -1,0 +1,19 @@
+.container {
+  margin: 0 auto;
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 7rem;
+  // margin: 1rem 0 1rem 1rem;
+  margin: 20px auto 0;
+  color: #ff4747;
+  text-shadow: 9px 9px black;
+}
+
+.content {
+  flex-grow: 1;
+}
