@@ -8,11 +8,11 @@ const IndexPage = () => {
     <Layout>
       <Head title="Home" />
       <div>
-        <img
+        {/* <img
           src={water}
           width="50%"
           style={{ margin: "3rem auto", display: "block" }}
-        />
+        /> */}
       </div>
     </Layout>
   )
