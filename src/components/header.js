@@ -10,15 +10,15 @@ const Header = () => {
   const openDropDown = () => setDisplay(true)
   const closeDropDown = () => setDisplay(false)
   useEffect(() => {
-    dropDown.current.addEventListener("mouseenter", openDropDown, false)
-    dropDown.current.addEventListener("mouseleave", closeDropDown, false)
+    // dropDown.current.addEventListener("mouseenter", openDropDown, false)
+    // dropDown.current.addEventListener("mouseleave", closeDropDown, false)
 
-    dropDown.current.addEventListener("touch", openDropDown, false)
+    dropDown.current.addEventListener("click", openDropDown, false)
 
     return () => {
-      dropDown.current.removeEventListener("mouseenter", openDropDown, false)
-      dropDown.current.removeEventListener("mouseleave", closeDropDown, false)
-      dropDown.current.removeEventListener("touch", openDropDown, false)
+      // dropDown.current.removeEventListener("mouseenter", openDropDown, false)
+      // dropDown.current.removeEventListener("mouseleave", closeDropDown, false)
+      dropDown.current.removeEventListener("click", openDropDown, false)
     }
   }, [display])
 
