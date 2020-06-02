@@ -5,6 +5,11 @@ import Head from "../components/head"
 
 const IndexPage = () => {
   useEffect(() => {
+    if (window && window.location.href.includes("token")) {
+      const token = window.location.href.split("?token=")[1]
+      localStorage.setItem("token", token)
+      window.close()
+    }
     const handlerEvent = event => {
       fetch("https://api.spotify.com/v1/me/", {
         headers: {
@@ -17,11 +22,7 @@ const IndexPage = () => {
 
     if (window) window.addEventListener("storage", handlerEvent)
   }, [])
-  if (window && window.location.href.includes("token")) {
-    const token = window.location.href.split("?token=")[1]
-    localStorage.setItem("token", token)
-    window.close()
-  }
+
   const spotAuth = () => {
     var scopes = "user-read-email user-follow-read"
     var redirect_uri = process.env.GATSBY_REDIRECT_URI
