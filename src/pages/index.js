@@ -14,9 +14,10 @@ const IndexPage = () => {
         .then(r => r.json())
         .then(console.log)
     }
-    window.addEventListener("storage", handlerEvent)
+
+    if (window) window.addEventListener("storage", handlerEvent)
   }, [])
-  if (window.location.href.includes("token")) {
+  if (window && window.location.href.includes("token")) {
     const token = window.location.href.split("?token=")[1]
     localStorage.setItem("token", token)
     window.close()
@@ -24,17 +25,19 @@ const IndexPage = () => {
   const spotAuth = () => {
     var scopes = "user-read-email user-follow-read"
     var redirect_uri = process.env.GATSBY_REDIRECT_URI
-    const spotPop = window.open(
-      "https://accounts.spotify.com/authorize" +
-        "?response_type=code" +
-        "&client_id=0740cd9b95fb44d4a58564b4b1e12811" +
-        "&scope=" +
-        encodeURIComponent(scopes) +
-        "&redirect_uri=" +
-        encodeURIComponent(redirect_uri),
-      "login-popup",
-      "width=500, height=400"
-    )
+    const spotPop =
+      window &&
+      window.open(
+        "https://accounts.spotify.com/authorize" +
+          "?response_type=code" +
+          "&client_id=0740cd9b95fb44d4a58564b4b1e12811" +
+          "&scope=" +
+          encodeURIComponent(scopes) +
+          "&redirect_uri=" +
+          encodeURIComponent(redirect_uri),
+        "login-popup",
+        "width=500, height=400"
+      )
   }
   console.log("wat")
   return (
