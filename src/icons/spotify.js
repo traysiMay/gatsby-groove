@@ -2,7 +2,8 @@ import React from "react"
 import spotifyStyles from "./spotify.module.scss"
 const Spotify = () => {
   const spotAuth = () => {
-    var scopes = "user-read-email user-follow-read"
+    var scopes =
+      "streaming user-read-email user-read-private user-modify-playback-state"
     var redirect_uri = process.env.GATSBY_REDIRECT_URI
     window &&
       window.open(

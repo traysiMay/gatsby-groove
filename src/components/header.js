@@ -39,7 +39,6 @@ const Header = () => {
       }
     }
   `)
-  console.log(display)
   return (
     <header className={headerStyles.header}>
       <canvas
@@ -60,14 +59,15 @@ const Header = () => {
       >
         {display && (
           <ul>
-            <div onClick={closeDropDown} className={headerStyles.x}>
-              X
-            </div>
             <li>
               <Link className={headerStyles.link} to="/blog">
                 Blog
               </Link>
+              <div onClick={closeDropDown} className={headerStyles.x}>
+                X
+              </div>
             </li>
+
             <li>
               <Link className={headerStyles.link} to="/playlists">
                 Playlists

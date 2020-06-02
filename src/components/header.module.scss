@@ -31,7 +31,6 @@
 
   li {
     list-style: none;
-    padding: 1rem;
     font-size: 5rem;
   }
 }
@@ -51,14 +50,24 @@
 .link {
   text-decoration: none;
   color: white;
+  padding: 1rem;
+}
+
+.link:hover {
+  background: #fb4913;
+}
+
+.link:hover ~ .x {
+  color: white;
 }
 
 .x {
   position: absolute;
-  right: 14px;
-  top: 9px;
+  right: 28px;
+  top: 18px;
   font-size: 4.7rem;
   color: #fb4913;
   user-select: none;
   cursor: pointer;
+  z-index: 3;
 }

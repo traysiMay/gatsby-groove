@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.track-wrap {
+  font-size: 7rem;
+  margin: 5px;
+  border-bottom: 30px solid black;
+}
+
+.track-name {
+  font-size: 5rem;
+}
+
+.play-button {
+  border: 5px solid black;
+  width: 17rem;
+  font-size: 4rem;
+  height: 11rem;
+  position: fixed;
+  right: 2%;
+  opacity: 0.6;
+  background: white;
+  cursor: pointer;
+}

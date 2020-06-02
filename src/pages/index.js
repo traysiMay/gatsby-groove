@@ -3,13 +3,16 @@ import "../styles/index.scss"
 import Layout from "../components/layout"
 import Head from "../components/head"
 import Spotify from "../icons/spotify"
+import { getQueryParam } from "../library/getQueryParam"
 
 const IndexPage = () => {
   const [user, setUser] = useState()
   useEffect(() => {
     if (window && window.location.href.includes("token")) {
-      const token = window.location.href.split("?token=")[1]
+      const token = getQueryParam("token")
+      const rToken = getQueryParam("r_token")
       localStorage.setItem("token", token)
+      localStorage.setItem("rToken", rToken)
       window.close()
     }
     const handlerEvent = event => {
