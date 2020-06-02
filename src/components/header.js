@@ -78,17 +78,17 @@ const Header = () => {
             </div>
             <li>
               <Link className={headerStyles.link} to="/blog">
-                blog
+                Blog
               </Link>
             </li>
             <li>
-              <Link className={headerStyles.link} to="/blog">
-                playlists
+              <Link className={headerStyles.link} to="/playlists">
+                Playlists
               </Link>
             </li>
             <li>
-              <Link className={headerStyles.link} to="/blog">
-                culture
+              <Link className={headerStyles.link} to="/culture">
+                Culture
               </Link>
             </li>
           </ul>

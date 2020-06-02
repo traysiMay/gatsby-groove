@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react"
 import "../styles/index.scss"
 import Layout from "../components/layout"
 import Head from "../components/head"
+import Spotify from "../icons/spotify"
 
 const IndexPage = () => {
+  const [user, setUser] = useState()
   useEffect(() => {
     if (window && window.location.href.includes("token")) {
       const token = window.location.href.split("?token=")[1]
@@ -17,41 +19,20 @@ const IndexPage = () => {
         },
       })
         .then(r => r.json())
-        .then(console.log)
+        .then(data => {
+          setUser(data.display_name)
+        })
     }
 
     if (window) window.addEventListener("storage", handlerEvent)
   }, [])
-
-  const spotAuth = () => {
-    var scopes = "user-read-email user-follow-read"
-    var redirect_uri = process.env.GATSBY_REDIRECT_URI
-    const spotPop =
-      window &&
-      window.open(
-        "https://accounts.spotify.com/authorize" +
-          "?response_type=code" +
-          "&client_id=0740cd9b95fb44d4a58564b4b1e12811" +
-          "&scope=" +
-          encodeURIComponent(scopes) +
-          "&redirect_uri=" +
-          encodeURIComponent(redirect_uri),
-        "login-popup",
-        "width=500, height=400"
-      )
-  }
-  console.log("wat")
   return (
     <Layout>
       <Head title="Home" />
-      <div style={{ fontSize: "5rem", width: "80%", marginLeft: "5%" }}>
-        Hello, I am under
-        <br />
-        construction :)
+      <div className="whatever">
+        {user ? `Oh Hi! ${user} :D` : "This Site is Under Construction"}
+        <Spotify />
       </div>
-      {/* <div onClick={spotAuth} style={{ color: "red" }}>
-        SPOT
-      </div> */}
     </Layout>
   )
 }

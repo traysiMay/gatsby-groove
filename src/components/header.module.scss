@@ -1,5 +1,6 @@
 .header {
   font-family: Gotham-Medium;
+  margin-top: 20px;
 }
 
 .title {
@@ -50,14 +51,15 @@
 
 .link {
   text-decoration: none;
-  color: red;
+  color: white;
 }
 
 .x {
   position: absolute;
-  right: 18px;
-  font-size: 5rem;
-  color: red;
+  right: 14px;
+  top: 9px;
+  font-size: 4.7rem;
+  color: #fb4913;
   user-select: none;
   cursor: pointer;
 }

@@ -6,21 +6,13 @@
     margin-top: 20px;
   }
   img {
-    // border: 9px solid black;
-    // border-top: 0;
-    margin: 0 auto;
-    // margin-right: 5rem;
-    // margin-top: -5rem;
-    display: block;
-    width: 200px;
-    opacity: 0.7;
   }
   cursor: pointer;
 }
 
 .first-box {
   //   border: 9px solid black;
-  width: 90%;
+  //   width: 90%;
   margin: auto;
 }
 
@@ -45,5 +37,8 @@
 @media screen and (max-width: 768px) {
   .container {
     display: block;
+  }
+  img {
+    margin-left: 5%;
   }
 }
