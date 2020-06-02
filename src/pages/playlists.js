@@ -38,29 +38,44 @@ const Playlists = () => {
       .then(console.log)
       .catch(console.log)
   }
+
+  function waitForSpotify() {
+    console.log("wat")
+    return new Promise(resolve => {
+      if ("Spotify" in window) {
+        resolve()
+      } else {
+        window.onSpotifyWebPlaybackSDKReady = () => {
+          resolve()
+        }
+      }
+    })
+  }
+  const getPlayListTracks = async () => {
+    const res = await fetch(
+      `https://api.spotify.com/v1/playlists/${
+        playlistURI.split(":")[2]
+      }/tracks`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    ).then(r => r.json())
+    const tracklist = res.items.map(i => i.track)
+    setPlaylistTracks(tracklist)
+  }
   useEffect(() => {
     if (window) {
-      const getPlayListTracks = async () => {
-        const res = await fetch(
-          `https://api.spotify.com/v1/playlists/${
-            playlistURI.split(":")[2]
-          }/tracks`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        ).then(r => r.json())
-        const tracklist = res.items.map(i => i.track)
-        setPlaylistTracks(tracklist)
-      }
       getPlayListTracks()
+      console.log(window.Spotify)
       const player = new window.Spotify.Player({
-        name: "Groove Devotion Player",
+        name: "Groove Devotion Player" + Math.random(),
         getOAuthToken: cb => {
           cb(localStorage.getItem("token"))
         },
       })
+      console.log(player)
       // Error handling
       player.addListener("initialization_error", ({ message }) => {
         console.error(message)

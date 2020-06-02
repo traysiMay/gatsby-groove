@@ -14,13 +14,12 @@
 }
 
 .play-button {
-  border: 5px solid black;
-  width: 17rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
   font-size: 4rem;
-  height: 11rem;
   position: fixed;
   right: 2%;
   opacity: 0.6;
-  background: white;
   cursor: pointer;
 }
