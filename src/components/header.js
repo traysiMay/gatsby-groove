@@ -9,22 +9,9 @@ const Header = () => {
 
   const openDropDown = () => setDisplay(true)
   const closeDropDown = () => setDisplay(false)
-  useEffect(() => {
-    // dropDown.current.addEventListener("mouseenter", openDropDown, false)
-    // dropDown.current.addEventListener("mouseleave", closeDropDown, false)
-
-    dropDown.current.addEventListener("click", openDropDown, false)
-
-    return () => {
-      // dropDown.current.removeEventListener("mouseenter", openDropDown, false)
-      // dropDown.current.removeEventListener("mouseleave", closeDropDown, false)
-      dropDown.current.removeEventListener("click", openDropDown, false)
-    }
-  }, [display])
 
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d")
-    console.log(ctx)
     const time = new Date()
     const mins = time.getMinutes()
     const hrs = time.getHours()
