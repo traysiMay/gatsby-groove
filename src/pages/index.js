@@ -16,6 +16,7 @@ const IndexPage = () => {
       window.close()
     }
     const handlerEvent = event => {
+      if (event.key !== "token") return
       fetch("https://api.spotify.com/v1/me/", {
         headers: {
           Authorization: `Bearer ${event.newValue}`,
@@ -27,7 +28,9 @@ const IndexPage = () => {
         })
     }
 
-    if (window) window.addEventListener("storage", handlerEvent)
+    if (window) window.addEventListener("storage", handlerEvent, false)
+
+    return () => window.removeEventListener("storage", handlerEvent, false)
   }, [])
   return (
     <Layout>
