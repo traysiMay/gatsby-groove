@@ -8,6 +8,7 @@ import { getQueryParam } from "../library/getQueryParam"
 const IndexPage = () => {
   const [user, setUser] = useState()
   useEffect(() => {
+    fetch("https://groove-server.glitch.me", { mode: "no-cors" })
     if (window && window.location.href.includes("token")) {
       const token = getQueryParam("token")
       const rToken = getQueryParam("r_token")
