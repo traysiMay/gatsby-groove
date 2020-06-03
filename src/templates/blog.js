@@ -38,7 +38,7 @@ const Blog = props => {
       <h1>{props.data.contentfulBlogPost.title}</h1>
       <p>{props.data.contentfulBlogPost.publishedDate}</p>
       <p>{props.data.contentfulBlogPost.author.name}</p>
-      <img src={props.data.contentfulBlogPost.image.resize.src} />
+      <img src={props.data.contentfulBlogPost.image.resize.src} alt={"eep"} />
       {documentToReactComponents(
         props.data.contentfulBlogPost.body.json,
         options

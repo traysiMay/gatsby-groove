@@ -6,9 +6,12 @@ const BlogItem = ({ img, post }) => {
 
   return (
     <div
+      role="link"
+      tabIndex={0}
       key={post.slug}
       className={blogItemStyles.container}
       onClick={goToSlug}
+      onKeyDown={goToSlug}
     >
       <div className={blogItemStyles.firstBox}>
         <div className={blogItemStyles.title}>{post.title}</div>

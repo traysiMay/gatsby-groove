@@ -4,7 +4,6 @@ import playlistStyles from "../styles/playlist.module.scss"
 const playlistURI = "spotify:playlist:0fp4K7jcnVoS9fLvCzBevl"
 
 const Playlists = () => {
-  const currentTrackRef = useRef()
   const deviceId = useRef()
   const [playerPlaying, setPlayerPlaying] = useState(false)
   const [currentTrack, setCurrentTrack] = useState()
@@ -39,18 +38,6 @@ const Playlists = () => {
       .catch(console.log)
   }
 
-  function waitForSpotify() {
-    console.log("wat")
-    return new Promise(resolve => {
-      if ("Spotify" in window) {
-        resolve()
-      } else {
-        window.onSpotifyWebPlaybackSDKReady = () => {
-          resolve()
-        }
-      }
-    })
-  }
   const getPlayListTracks = async () => {
     const res = await fetch(
       `https://api.spotify.com/v1/playlists/${
@@ -62,12 +49,23 @@ const Playlists = () => {
         },
       }
     ).then(r => r.json())
+    if (res.error) {
+      return setPlaylistTracks([
+        {
+          artists: [
+            {
+              name: "You Must Sign in Through Spotify to Listen :)",
+            },
+          ],
+        },
+      ])
+    }
     const tracklist = res.items.map(i => i.track)
     setPlaylistTracks(tracklist)
   }
   useEffect(() => {
+    getPlayListTracks()
     if (window) {
-      getPlayListTracks()
       console.log(window.Spotify)
       const player = new window.Spotify.Player({
         name: "Groove Devotion Player" + Math.random(),
@@ -126,7 +124,7 @@ const Playlists = () => {
     }
   }, [])
   return (
-    <Layout pageTitle={"Playlists"}>
+    <Layout pageTitle={"Playlist"}>
       <button
         className={playlistStyles.playButton}
         onClick={playerPlaying ? pause : startPlayingList}

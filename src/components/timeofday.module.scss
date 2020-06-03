@@ -1,0 +1,19 @@
+.svg {
+  width: 230px;
+  margin: auto;
+  display: block;
+  /* position: absolute; */
+  width: 130px;
+  /* left: 31%; */
+  margin-bottom: -96px;
+  transform: rotate(5deg);
+  overflow: visible;
+}
+
+.morning {
+  transform: translate(-38px, 4px);
+}
+
+.night {
+  transform: translate(24px, -6px);
+}

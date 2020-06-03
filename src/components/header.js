@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
 import headerStyles from "./header.module.scss"
+import TimeOfDay from "./timeofday"
 
 const Header = () => {
   const [display, setDisplay] = useState(false)
+  const [timeOfDay, setTimeOfDay] = useState(null)
   const dropDown = useRef()
   const canvasRef = useRef()
 
@@ -15,6 +17,14 @@ const Header = () => {
     const time = new Date()
     const mins = time.getMinutes()
     const hrs = time.getHours()
+
+    if (hrs < 15) {
+      setTimeOfDay("morning")
+    } else if (hrs > 15 && hrs < 20) {
+      setTimeOfDay("afternoon")
+    } else {
+      setTimeOfDay("night")
+    }
 
     const numLines = mins + hrs * 60
     const r = 200
@@ -41,7 +51,9 @@ const Header = () => {
   `)
   return (
     <header className={headerStyles.header}>
+      <TimeOfDay timeOfDay={timeOfDay} />
       <canvas
+        aria-label="Sun Dial"
         ref={canvasRef}
         width="400"
         height="400"
@@ -51,6 +63,9 @@ const Header = () => {
         <div className={headerStyles.title}>{data.site.siteMetadata.title}</div>
       </Link>
       <div
+        role="button"
+        tabIndex={0}
+        onKeyDown={!display ? openDropDown : () => {}}
         onClick={!display ? openDropDown : () => {}}
         ref={dropDown}
         className={`${headerStyles.navList} ${
@@ -63,14 +78,20 @@ const Header = () => {
               <Link className={headerStyles.link} to="/blog">
                 Blog
               </Link>
-              <div onClick={closeDropDown} className={headerStyles.x}>
+              <div
+                role="button"
+                tabIndex={-1}
+                onKeyDown={closeDropDown}
+                onClick={closeDropDown}
+                className={headerStyles.x}
+              >
                 X
               </div>
             </li>
 
             <li>
               <Link className={headerStyles.link} to="/playlists">
-                Playlists
+                Playlist
               </Link>
             </li>
             <li>

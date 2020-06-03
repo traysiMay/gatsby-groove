@@ -20,7 +20,13 @@ const Spotify = () => {
       )
   }
   return (
-    <div onClick={spotAuth} className={spotifyStyles.container}>
+    <div
+      role="button"
+      tabIndex={-2}
+      onKeyDown={spotAuth}
+      onClick={spotAuth}
+      className={spotifyStyles.container}
+    >
       <svg viewBox="0 0 31 31.3">
         <path
           fillRule="evenodd"
