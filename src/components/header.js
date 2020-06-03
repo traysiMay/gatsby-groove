@@ -18,7 +18,7 @@ const Header = () => {
     const mins = time.getMinutes()
     const hrs = time.getHours()
 
-    if (hrs < 15) {
+    if (hrs > 5 && hrs < 15) {
       setTimeOfDay("morning")
     } else if (hrs > 15 && hrs < 20) {
       setTimeOfDay("afternoon")
