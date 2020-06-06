@@ -13,6 +13,7 @@ export const query = graphql`
         node {
           name
           timeOfDay
+          live
           image {
             fluid {
               ...GatsbyContentfulFluid
@@ -51,15 +52,17 @@ const IndexPage = props => {
 
     return () => window.removeEventListener("storage", handlerEvent, false)
   }, [])
-
-  const src = props.data.allContentfulFeaturedContent.edges[0].node.image.fluid
-
+  const frogs = props.data.allContentfulFeaturedContent.edges
   return (
     <Layout>
       <Head title="Home" />
       <div className="whatever">
         {user ? `Oh Hi! ${user} :D` : "This Site is Under Construction"}
-        <Img fluid={src} />
+        {frogs.map(frog => {
+          if (frog.node.live) {
+            return <Img fluid={frog.node.image.fluid} />
+          }
+        })}
         <Spotify />
       </div>
     </Layout>
