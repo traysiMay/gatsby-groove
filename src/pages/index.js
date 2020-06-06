@@ -12,7 +12,6 @@ export const query = graphql`
       edges {
         node {
           name
-          live
           timeOfDay
           image {
             fluid {
@@ -52,15 +51,15 @@ const IndexPage = props => {
 
     return () => window.removeEventListener("storage", handlerEvent, false)
   }, [])
-  console.log(props.data.allContentfulFeaturedContent.edges[0].node.image)
+
   const src = props.data.allContentfulFeaturedContent.edges[0].node.image.fluid
-  console.log(src)
+
   return (
     <Layout>
       <Head title="Home" />
       <div className="whatever">
-        {/* <Img fluid={src} /> */}
         {user ? `Oh Hi! ${user} :D` : "This Site is Under Construction"}
+        <Img fluid={src} />
         <Spotify />
       </div>
     </Layout>

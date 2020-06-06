@@ -23,3 +23,7 @@ body {
   margin: auto;
   cursor: pointer;
 }
+
+*:focus {
+  outline: 0;
+}
