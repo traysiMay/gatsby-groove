@@ -26,7 +26,7 @@ const Player = () => {
       if (event.key !== "token") return
       setToken(event.newValue)
     }
-    if (window) {
+    if (window !== "undefined") {
       window.addEventListener("storage", handlerEvent, false)
 
       let player = new window.Spotify.Player({
