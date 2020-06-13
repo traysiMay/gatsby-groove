@@ -12,7 +12,7 @@ const Player = ({ currentTrack, isPlaying, next, previous, togglePlay }) => {
           ? `${currentTrack.artists.map(a => a.name).join(", ")} - ${
               currentTrack.name
             }`
-          : "nopemo"}
+          : "nothin' here"}
       </div>
       <div className={playerStyles.controls}>
         <div onClick={previous}>
