@@ -5,19 +5,15 @@ import Head from "../components/head"
 import Spotify from "../icons/spotify"
 import { getQueryParam } from "../library/getQueryParam"
 import Img from "gatsby-image"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 export const query = graphql`
   query {
-    allContentfulFeaturedContent {
+    allContentfulHomePlaceholder {
       edges {
         node {
-          name
-          timeOfDay
-          live
-          image {
-            fluid {
-              ...GatsbyContentfulFluid
-            }
+          content {
+            json
           }
         }
       }
@@ -52,17 +48,15 @@ const IndexPage = props => {
 
     return () => window.removeEventListener("storage", handlerEvent, false)
   }, [])
-  const frogs = props.data.allContentfulFeaturedContent.edges
+  console.log(props.data)
+  const json =
+    props.data.allContentfulHomePlaceholder.edges[0].node.content.json
   return (
     <Layout>
       <Head title="Home" />
       <div className="whatever">
-        {user ? `Oh Hi! ${user} :D` : "This Site is Under Construction"}
-        {frogs.map(frog => {
-          if (frog.node.live) {
-            return <Img fluid={frog.node.image.fluid} />
-          }
-        })}
+        {user && `Oh Hi! ${user} :D`}
+        {documentToReactComponents(json)}
         <Spotify />
       </div>
     </Layout>

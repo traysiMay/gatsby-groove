@@ -1,8 +1,12 @@
 .container {
   margin: 0.5rem;
+  img {
+    // filter: saturate(4.5);
+    // width: 50%;
+  }
 }
 .title {
-  font-size: 5rem;
+  font-size: 3rem;
 }
 
 .date {
@@ -10,26 +14,22 @@
 }
 
 .author {
-  text-align: right;
-  font-size: 6rem;
+  // text-align: right;
+  font-size: 2rem;
 
   div {
-    flex: 1 0 auto;
+    // flex: 1 0 auto;
   }
 }
 
-img {
-  filter: saturate(4.5);
-}
-
 .content {
-  margin-top: -5rem;
-  font-size: 3rem;
+  // margin-top: -5rem;
+  // font-size: 3rem;
 }
 
 @media screen and (min-width: 768px) {
   img {
-    margin-right: 4rem;
+    // margin-right: 4rem;
   }
 }
 

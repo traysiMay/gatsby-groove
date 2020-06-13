@@ -2,7 +2,9 @@ import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import { BLOCKS } from "@contentful/rich-text-types"
 import blogStyles from "./blog.module.scss"
+import PlaylistEmbed from "../components/playlist-embed"
 
 export const query = graphql`
   query($slug: String!) {
@@ -27,10 +29,15 @@ export const query = graphql`
 const Blog = props => {
   const options = {
     renderNode: {
-      "embedded-asset-block": node => {
+      [BLOCKS.EMBEDDED_ASSET]: node => {
         const alt = node.data.target.fields.title["en-US"]
         const url = node.data.target.fields.file["en-US"].url
         return <img alt={alt} src={url} />
+      },
+      [BLOCKS.EMBEDDED_ENTRY]: node => {
+        const uri = node.data.target.fields.uri["en-US"]
+        console.log(uri)
+        return <PlaylistEmbed uri={uri} />
       },
     },
   }
@@ -40,18 +47,18 @@ const Blog = props => {
         <h1 className={blogStyles.title}>
           {props.data.contentfulBlogPost.title}
         </h1>
-        <p className={blogStyles.date}>
+        {/* <div className={blogStyles.date}>
           {props.data.contentfulBlogPost.publishedDate}
-        </p>
+        </div> */}
         <p className={blogStyles.author}>
-          <div>
-            <img
-              src={props.data.contentfulBlogPost.image.resize.src}
-              alt={"eep"}
-            />
-            {props.data.contentfulBlogPost.author.name}{" "}
-          </div>
+          {props.data.contentfulBlogPost.author.name}
         </p>
+        <div>
+          <img
+            src={props.data.contentfulBlogPost.image.resize.src}
+            alt={"eep"}
+          />
+        </div>
         <div className={blogStyles.content}>
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json,

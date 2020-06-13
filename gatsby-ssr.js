@@ -10,3 +10,13 @@ export const onRenderBody = ({ setPostBodyComponents }) => {
     />,
   ])
 }
+
+export const wrapPageElement = ({ element, props }) => {
+  console.log("hi")
+  return (
+    <div>
+      <div>fROGCOCK</div>
+      {element}
+    </div>
+  )
+}

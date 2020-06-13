@@ -99,6 +99,11 @@ const Header = () => {
                 Culture
               </Link>
             </li>
+            <li>
+              <Link className={headerStyles.link} to="/about">
+                About
+              </Link>
+            </li>
           </ul>
         )}
       </div>

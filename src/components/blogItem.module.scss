@@ -1,6 +1,8 @@
 .container {
   display: flex;
   position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin-top: 80px;
   &:first-of-type {
     margin-top: 20px;
@@ -13,11 +15,11 @@
 }
 
 .first-box {
-  margin: auto;
+  // margin: auto;
 }
 
 .title {
-  font-size: 5rem;
+  font-size: 3rem;
   width: 90%;
   margin: auto;
 }
@@ -29,7 +31,7 @@
 }
 
 .author {
-  font-size: 4rem;
+  font-size: 2rem;
   width: 75%;
   margin: auto;
 }
@@ -39,6 +41,6 @@
     display: block;
   }
   img {
-    margin-left: 5%;
+    // margin-left: 5%;
   }
 }

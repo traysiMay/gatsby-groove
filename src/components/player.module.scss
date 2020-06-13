@@ -1,0 +1,25 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  color: white;
+  font-size: 2rem;
+  background: red;
+  padding: 1rem;
+  text-align: center;
+  // display: flex;
+  // justify-content: space-evenly;
+
+  div {
+    // border: 2px solid white;
+    cursor: pointer;
+  }
+  fill: white;
+}
+.song-details {
+  white-space: nowrap;
+}
+.controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
