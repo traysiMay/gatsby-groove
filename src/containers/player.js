@@ -8,7 +8,9 @@ import playerStyles from "./player.module.scss"
 const Player = () => {
   const [track, setTrack] = useState("")
   const [isPlaying, setIsPlaying] = useState(false)
-  const [token, setToken] = useState(localStorage.getItem("token"))
+  const [token, setToken] = useState(
+    typeof window !== "undefined" && localStorage.getItem("token")
+  )
 
   const togglePlay = () => {
     if (isPlaying) {
