@@ -1,4 +1,5 @@
 import React from "react"
+import Player from "./src/containers/player"
 
 export const onRenderBody = ({ setPostBodyComponents }) => {
   setPostBodyComponents([
@@ -12,11 +13,10 @@ export const onRenderBody = ({ setPostBodyComponents }) => {
 }
 
 export const wrapPageElement = ({ element, props }) => {
-  console.log("hi")
   return (
     <div>
-      <div>fROGCOCK</div>
       {element}
+      <Player />
     </div>
   )
 }
