@@ -17,6 +17,8 @@
 }
 .song-details {
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .controls {
   width: 100%;
