@@ -5,6 +5,6 @@ import createStore from "./src/state/createStore"
 
 export default ({ element }) => {
   const store = createStore()
-  store.dispatch({ type: "LOADED", loaded: true })
+  //   store.dispatch({ type: "LOADED", loaded: true })
   return <Provider store={store}>{element}</Provider>
 }
