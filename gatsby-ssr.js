@@ -1,4 +1,5 @@
 import React from "react"
+import wrapWithProvider from "./wrap-with-provider"
 import Player from "./src/containers/player"
 
 export const onRenderBody = ({ setPostBodyComponents }) => {
@@ -20,3 +21,5 @@ export const wrapPageElement = ({ element, props }) => {
     </div>
   )
 }
+
+export const wrapRootelement = wrapWithProvider

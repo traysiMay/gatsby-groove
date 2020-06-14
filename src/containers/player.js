@@ -28,7 +28,6 @@ const Player = () => {
     const phandlerEvent = event => {
       console.log("player storage event")
       if (event.key !== "token") return
-      setToken(event.newValue)
       getUser(event.newValue).then(data => {
         if (data.error) {
           console.log("invalid token")
@@ -46,9 +45,6 @@ const Player = () => {
     try {
       if (window !== "undefined") {
         // listener for token changes
-        console.log(phandlerEvent)
-        console.log(window)
-        console.log("handle event set")
         // player init
         let player = new window.Spotify.Player({
           name: "Groove Devotion Player",

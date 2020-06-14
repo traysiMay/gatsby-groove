@@ -17,7 +17,7 @@ const BlogItem = ({ img, post }) => {
         <div className={blogItemStyles.title}>{post.title}</div>
         {/* <div className={blogItemStyles.date}>{post.publishedDate}</div> */}
         <div className={blogItemStyles.author}>
-          <span style={{ fontSize: "1.5rem" }}>by</span> {post.author.name}
+          <span style={{ fontSize: "1rem" }}>by</span> {post.author.name}
         </div>
       </div>
       <div>

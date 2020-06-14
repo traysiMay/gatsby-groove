@@ -16,12 +16,14 @@
 
 .first-box {
   // margin: auto;
+  margin-right: 10px;
 }
 
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
+  font-weight: 600;
   width: 90%;
-  margin: auto;
+  // margin: auto;
 }
 
 .date {
@@ -31,16 +33,19 @@
 }
 
 .author {
-  font-size: 2rem;
+  font-size: 1rem;
   width: 75%;
-  margin: auto;
+  // margin: auto;
 }
 
 @media screen and (max-width: 768px) {
   .container {
     display: block;
   }
-  img {
-    // margin-left: 5%;
+  .container {
+    img {
+      // margin-left: 5%;
+      max-width: 200px;
+    }
   }
 }

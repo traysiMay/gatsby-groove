@@ -1,6 +1,6 @@
 import React from "react"
+import wrapWithProvider from "./wrap-with-provider"
 import Player from "./src/containers/player"
-
 export const onRenderBody = ({ setPostBodyComponents }) => {
   setPostBodyComponents([
     <script
@@ -19,4 +19,10 @@ export const wrapPageElement = ({ element, props }) => {
       <Player />
     </div>
   )
+}
+
+export const wrapRootElement = wrapWithProvider
+
+export const onClientEntry = () => {
+  window.onload = () => {}
 }
