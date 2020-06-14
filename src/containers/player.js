@@ -11,6 +11,7 @@ const Player = () => {
   const [token, setToken] = useState(
     typeof window !== "undefined" && localStorage.getItem("token")
   )
+  const [playerExists, setPlayerExists] = useState(0)
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -26,6 +27,7 @@ const Player = () => {
       if (event.key !== "token") return
       setToken(event.newValue)
     }
+    if (playerExists > 4) return
     try {
       if (window !== "undefined") {
         window.addEventListener("storage", handlerEvent, false)
@@ -36,6 +38,7 @@ const Player = () => {
             cb(token)
           },
         })
+        setPlayerExists(5)
         // Error handling
         player.addListener("initialization_error", ({ message }) => {
           console.error(message)
@@ -102,9 +105,10 @@ const Player = () => {
       }
     } catch (err) {
       console.log(err, " problem loading spot plaer")
+      setTimeout(() => setPlayerExists(playerExists + 1), 3000)
     }
     return () => window.removeEventListener("storage", handlerEvent, false)
-  }, [token])
+  }, [token, playerExists])
 
   return (
     <div className={playerStyles.container}>
