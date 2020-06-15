@@ -3,7 +3,7 @@ import spotifyStyles from "./spotify.module.scss"
 const Spotify = ({ stroke = "#000000" }) => {
   const spotAuth = () => {
     var scopes =
-      "streaming user-read-email user-read-private user-modify-playback-state"
+      "streaming user-read-email user-read-private user-modify-playback-state user-read-playback-state"
     var redirect_uri = process.env.GATSBY_REDIRECT_URI
     window &&
       window.open(

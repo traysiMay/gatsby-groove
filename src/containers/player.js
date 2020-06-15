@@ -7,6 +7,7 @@ import previousPlaylistTrack from "../services/previous-playlist-track"
 import playerStyles from "./player.module.scss"
 import getUser from "../services/get-user"
 import { myContext } from "../../wrap-with-provider"
+import getUserDevices from "../services/get-user-devices"
 const Player = () => {
   const [track, setTrack] = useState("")
   const [isPlaying, setIsPlaying] = useState(false)
@@ -64,6 +65,11 @@ const Player = () => {
           } else {
             setIsUserAuth(true)
           }
+        })
+
+        getUserDevices().then(data => {
+          if (data.error) return
+          context.addSpotifyDevice(data.devices)
         })
 
         // set player to max retries because it exists
@@ -127,6 +133,9 @@ const Player = () => {
         player.addListener("ready", ({ device_id }) => {
           console.log("Ready with Device ID", device_id)
           localStorage.setItem("deviceId", device_id)
+          getUserDevices().then(data => {
+            context.addSpotifyDevice(data.devices)
+          })
         })
 
         // Not Ready
@@ -150,12 +159,15 @@ const Player = () => {
   return (
     <div className={playerStyles.container}>
       <PlayerComponent
+        chosenSpotifyDevice={context && context.chosenSpotifyDevice}
+        chooseSpotifyDevice={context && context.chooseSpotifyDevice}
         currentTrack={track}
         device={context && context.device}
         isPlaying={isPlaying}
         noAuth={!isUserAuth}
         next={nextPlaylistTrack}
         previous={previousPlaylistTrack}
+        spotifyDevices={context && context.spotifyDevices}
         togglePlay={togglePlay}
       />
     </div>

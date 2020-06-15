@@ -6,22 +6,26 @@ import Forward from "../icons/forward"
 import Backward from "../icons/backward"
 import Spotify from "../icons/spotify"
 const Player = ({
+  chosenSpotifyDevice,
+  chooseSpotifyDevice,
   currentTrack,
   device,
   isPlaying,
   next,
   noAuth,
   previous,
+  spotifyDevices,
   togglePlay,
 }) => {
-  if (device) {
-    return (
-      <div className={playerStyles.wrapper}>
-        <div>Sorry but iOS is not supported</div>
-        <div style={{ width: 100, margin: "auto" }}>:(</div>
-      </div>
-    )
-  }
+  // if (device) {
+  //   return (
+  //     <div className={playerStyles.wrapper}>
+  //       <div>Sorry but iOS is not supported</div>
+  //       <div style={{ width: 100, margin: "auto" }}>:(</div>
+  //     </div>
+  //   )
+  // }
+  console.log(spotifyDevices)
   if (noAuth) {
     return (
       <div className={playerStyles.wrapper}>
@@ -49,6 +53,24 @@ const Player = ({
         <div onClick={next}>
           <Forward />
         </div>
+      </div>
+      <div className={playerStyles.deviceList}>
+        {spotifyDevices.map(d => {
+          console.log(chosenSpotifyDevice)
+          return (
+            <div
+              style={{
+                color: chosenSpotifyDevice === d.id ? "green" : "white",
+              }}
+              onClick={() => {
+                console.log(d.id)
+                chooseSpotifyDevice(d.id)
+              }}
+            >
+              {d.name}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

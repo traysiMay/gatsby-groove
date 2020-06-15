@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef, useContext } from "react"
 import pausePlaylist from "../services/pause-playlist-track"
 import startPlayingPlaylist from "../services/start-playing-playlist"
 import getPlaylistTracks from "../services/get-playlist-tracks"
 import Layout from "../components/layout"
 import playlistStyles from "../styles/playlist.module.scss"
+import { myContext } from "../../wrap-with-provider"
 const playlistURI = "spotify:playlist:0fp4K7jcnVoS9fLvCzBevl"
 
 const Playlists = () => {
@@ -12,6 +13,7 @@ const Playlists = () => {
   const [currentTrack, setCurrentTrack] = useState()
   const [playlistTracks, setPlaylistTracks] = useState([])
 
+  const context = useContext(myContext)
   useEffect(() => {
     getPlaylistTracks().then(data => {
       setPlaylistTracks(data.tracks)
@@ -81,10 +83,15 @@ const Playlists = () => {
       )} */}
       <div className={playlistStyles.container}>
         {playlistTracks.map(track => {
-          console.log(track.trackUri)
           return (
             <div
-              onClick={() => startPlayingPlaylist(playlistURI, track.trackUri)}
+              onClick={() =>
+                startPlayingPlaylist(
+                  playlistURI,
+                  track.trackUri,
+                  context && context.chosenSpotifyDevice
+                )
+              }
               key={track.name}
               id={track.trackUri.split(":")[2]}
               // style={{
