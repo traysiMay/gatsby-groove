@@ -1,33 +1,48 @@
-import React, { useEffect } from "react"
-import { connect } from "react-redux"
+import React, { useEffect, useContext } from "react"
 import Header from "./header"
 
 import layoutStyles from "./layout.module.scss"
 import getUser from "../services/get-user"
+import { myContext } from "../../wrap-with-provider"
+import { getQueryParam } from "../library/getQueryParam"
 
-const Layout = ({
-  check_spotify,
-  children,
-  device_type,
-  dispatch,
-  loaded,
-  pageTitle,
-}) => {
+const Layout = ({ children, pageTitle }) => {
+  const context = useContext(myContext)
   useEffect(() => {
-    console.log(check_spotify)
-    if (localStorage && !check_spotify) {
-      console.log("checking...")
-      const token = localStorage.getItem("token")
-      if (token) {
-        getUser(token).then(data => {
-          if (!data.error) {
-            dispatch({ type: "CHECK_AND_AUTH", response: true })
-          }
-        })
+    if (!context) return
+    const { checkSpotify, setCheckSpotify, setCheckAuthorized } = context
+    if (checkSpotify) return
+    getUser(localStorage.getItem("token")).then(data => {
+      if (!data.error) {
+        setCheckSpotify(true)
+        if (data.display_name) {
+          setCheckAuthorized(true)
+        }
       }
+    })
+  }, [])
+  useEffect(() => {
+    const currentToken = localStorage.getItem("token")
+    const refreshToken = localStorage.getItem("r_token")
+    // if (currentToken) {
+    //   getUser(currentToken).then(data => setUser(data.display_name))
+    // }
+    if (window && window.location.href.includes("token")) {
+      const token = getQueryParam("token")
+      const rToken = getQueryParam("r_token")
+      localStorage.setItem("token", token)
+      localStorage.setItem("rToken", rToken)
+      window.close()
     }
-  })
-  console.log(check_spotify)
+    // const handlerEvent = event => {
+    //   console.log("index storage event")
+    //   if (event.key !== "token") return
+    //   getUser(event.newValue).then(data => setUser(data.display_name))
+    // }
+    // if (window) window.addEventListener("storage", handlerEvent, false)
+
+    // return () => window.removeEventListener("storage", handlerEvent, false)
+  }, [])
   return (
     <div className={layoutStyles.container}>
       <Header />
@@ -37,11 +52,4 @@ const Layout = ({
   )
 }
 
-const mapStateToProps = ({ check_spotify, device_type, loaded }) => ({
-  check_spotify,
-  device_type,
-  loaded,
-})
-
-const mapDispatchToProps = dispatch => ({ dispatch })
-export default connect(mapStateToProps, mapDispatchToProps)(Layout)
+export default Layout

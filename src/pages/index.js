@@ -32,13 +32,13 @@ const IndexPage = props => {
     if (currentToken) {
       getUser(currentToken).then(data => setUser(data.display_name))
     }
-    if (window && window.location.href.includes("token")) {
-      const token = getQueryParam("token")
-      const rToken = getQueryParam("r_token")
-      localStorage.setItem("token", token)
-      localStorage.setItem("rToken", rToken)
-      window.close()
-    }
+    // if (window && window.location.href.includes("token")) {
+    //   const token = getQueryParam("token")
+    //   const rToken = getQueryParam("r_token")
+    //   localStorage.setItem("token", token)
+    //   localStorage.setItem("rToken", rToken)
+    //   window.close()
+    // }
     const handlerEvent = event => {
       console.log("index storage event")
       if (event.key !== "token") return
@@ -56,7 +56,7 @@ const IndexPage = props => {
       <div className="whatever">
         {user && `Oh Hi! ${user} :D`}
         {documentToReactComponents(json)}
-        <Spotify />
+        {/* <Spotify /> */}
       </div>
     </Layout>
   )

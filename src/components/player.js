@@ -1,10 +1,37 @@
-import React from "react"
+import React, { useContext } from "react"
 import playerStyles from "./player.module.scss"
 import Play from "../icons/play"
 import Pause from "../icons/pause"
 import Forward from "../icons/forward"
 import Backward from "../icons/backward"
-const Player = ({ currentTrack, isPlaying, next, previous, togglePlay }) => {
+import Spotify from "../icons/spotify"
+const Player = ({
+  currentTrack,
+  device,
+  isPlaying,
+  next,
+  noAuth,
+  previous,
+  togglePlay,
+}) => {
+  if (device) {
+    return (
+      <div className={playerStyles.wrapper}>
+        <div>Sorry but iOS is not supported</div>
+        <div style={{ width: 100, margin: "auto" }}>:(</div>
+      </div>
+    )
+  }
+  if (noAuth) {
+    return (
+      <div className={playerStyles.wrapper}>
+        <div>Wanna Use the Player?</div>
+        <div style={{ width: 100, margin: "auto" }}>
+          <Spotify stroke={"#FFFFFF"} />
+        </div>
+      </div>
+    )
+  }
   return (
     <div className={playerStyles.wrapper}>
       <div className={playerStyles.songDetails}>
@@ -12,7 +39,7 @@ const Player = ({ currentTrack, isPlaying, next, previous, togglePlay }) => {
           ? `${currentTrack.artists.map(a => a.name).join(", ")} - ${
               currentTrack.name
             }`
-          : "nothin' here"}
+          : "Time to find a Playlist!"}
       </div>
       <div className={playerStyles.controls}>
         <div onClick={previous}>

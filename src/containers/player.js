@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import PlayerComponent from "../components/player"
 import pausePlaylistTrack from "../services/pause-playlist-track"
 import resumePlaylistTrack from "../services/start-playing-playlist"
@@ -6,6 +6,7 @@ import nextPlaylistTrack from "../services/next-playlist-track"
 import previousPlaylistTrack from "../services/previous-playlist-track"
 import playerStyles from "./player.module.scss"
 import getUser from "../services/get-user"
+import { myContext } from "../../wrap-with-provider"
 const Player = () => {
   const [track, setTrack] = useState("")
   const [isPlaying, setIsPlaying] = useState(false)
@@ -14,6 +15,8 @@ const Player = () => {
   )
   const [playerExists, setPlayerExists] = useState(0)
   const [isUserAuth, setIsUserAuth] = useState(false)
+
+  const context = useContext(myContext)
 
   const togglePlay = () => {
     if (isPlaying) {
@@ -26,7 +29,7 @@ const Player = () => {
   useEffect(() => {
     // handle new token events
     const phandlerEvent = event => {
-      console.log("player storage event")
+      console.log("player storage event", console.log(event))
       if (event.key !== "token") return
       getUser(event.newValue).then(data => {
         if (data.error) {
@@ -34,12 +37,11 @@ const Player = () => {
           setIsUserAuth(false)
         } else {
           setIsUserAuth(true)
+          setToken(event.newValue)
         }
       })
     }
     window.addEventListener("storage", phandlerEvent, false)
-
-    // handle player window retries
 
     // try to init player
     try {
@@ -55,6 +57,7 @@ const Player = () => {
 
         // check the user
         getUser(localStorage.getItem("token")).then(data => {
+          console.log("checking user")
           if (data.error) {
             console.log("invalid token")
             setIsUserAuth(false)
@@ -146,17 +149,15 @@ const Player = () => {
 
   return (
     <div className={playerStyles.container}>
-      {isUserAuth ? (
-        <PlayerComponent
-          currentTrack={track}
-          isPlaying={isPlaying}
-          next={nextPlaylistTrack}
-          previous={previousPlaylistTrack}
-          togglePlay={togglePlay}
-        />
-      ) : (
-        <div>No Spot Auth</div>
-      )}
+      <PlayerComponent
+        currentTrack={track}
+        device={context && context.device}
+        isPlaying={isPlaying}
+        noAuth={!isUserAuth}
+        next={nextPlaylistTrack}
+        previous={previousPlaylistTrack}
+        togglePlay={togglePlay}
+      />
     </div>
   )
 }

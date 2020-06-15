@@ -1,6 +1,6 @@
 import React, { Fragment } from "react"
 import { graphql, useStaticQuery } from "gatsby"
-import Layout from "../components/layout"
+import Layout, { ConnectedBabyState } from "../components/layout"
 import BlogItem from "../components/blogItem"
 
 const BlogPage = () => {

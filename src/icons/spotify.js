@@ -1,6 +1,6 @@
 import React from "react"
 import spotifyStyles from "./spotify.module.scss"
-const Spotify = () => {
+const Spotify = ({ stroke = "#000000" }) => {
   const spotAuth = () => {
     var scopes =
       "streaming user-read-email user-read-private user-modify-playback-state"
@@ -32,7 +32,7 @@ const Spotify = () => {
           fillRule="evenodd"
           clipRule="evenodd"
           fill="none"
-          stroke="#000000"
+          stroke={stroke}
           strokeMiterlimit="10"
           d="M21.3,14.6
 	c-3.1-1.8-8.1-2-11.1-1.1c-0.5,0.1-1-0.1-1.1-0.6c-0.1-0.5,0.1-1,0.6-1.1c3.4-1,9-0.8,12.5,1.3c0.4,0.3,0.6,0.8,0.3,1.2
@@ -104,7 +104,7 @@ const Spotify = () => {
           fillRule="evenodd"
           clipRule="evenodd"
           fill="none"
-          stroke="#000000"
+          stroke={stroke}
           strokeMiterlimit="10"
           cx="15.6"
           cy="15.7"

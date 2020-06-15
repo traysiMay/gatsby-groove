@@ -22,7 +22,3 @@ export const wrapPageElement = ({ element, props }) => {
 }
 
 export const wrapRootElement = wrapWithProvider
-
-export const onClientEntry = () => {
-  window.onload = () => {}
-}

@@ -23,6 +23,7 @@ const PlaylistEmbed = ({ uri }) => {
             {trackList.map(track => {
               return (
                 <div
+                  className={playlistEmbedStyles.track}
                   id={track.trackUri.split(":")[2]}
                   onClick={() => startPlayingPlaylist(uri, track.trackUri)}
                   key={track.name + track.artists}
