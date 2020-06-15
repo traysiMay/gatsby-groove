@@ -53,12 +53,12 @@ const Blog = props => {
         <p className={blogStyles.author}>
           {props.data.contentfulBlogPost.author.name}
         </p>
-        <div>
+        {/* <div>
           <img
             src={props.data.contentfulBlogPost.image.resize.src}
             alt={"eep"}
           />
-        </div>
+        </div> */}
         <div className={blogStyles.content}>
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json,
