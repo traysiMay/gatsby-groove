@@ -21,26 +21,38 @@ const Provider = props => {
   const [spotifyDevices, setSpotifyDevices] = useState([])
   const [chosenSpotifyDevice, chooseSpotifyDevice] = useState("")
   const [playerInited, setPlayerInited] = useState()
+  const [groovePlayer, setGroovePlayer] = useState("")
 
-  const addSpotifyDevice = devices => {
-    const currentDeviceIds = spotifyDevices.map(d => d.id)
-    const newDevices = devices.filter(d => !currentDeviceIds.includes(d.id))
-    setSpotifyDevices([...spotifyDevices, ...newDevices])
+  const changeSpotifyDevice = deviceId => {
+    chooseSpotifyDevice(deviceId)
+    localStorage.setItem("deviceId", deviceId)
+  }
+
+  const addSpotifyDevices = devices => {
+    for (let i = 0; i < devices.length; i++) {
+      if (devices[i].is_active) {
+        changeSpotifyDevice(devices[i].id)
+      }
+    }
+    setSpotifyDevices([...devices])
   }
 
   return (
     <myContext.Provider
       value={{
-        addSpotifyDevice,
-        chooseSpotifyDevice,
+        addSpotifyDevices,
+        changeSpotifyDevice,
         chosenSpotifyDevice,
+        chooseSpotifyDevice,
         spotifyDevices,
         checkSpotify,
         checkAuthorized,
         device,
+        groovePlayer,
         playerInited,
         setCheckSpotify,
         setCheckAuthorized,
+        setGroovePlayer,
       }}
     >
       {props.children}

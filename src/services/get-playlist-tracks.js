@@ -4,7 +4,6 @@ export default async uri => {
   )
     .then(r => r.json())
     .then(data => {
-      console.log(data)
       const imgUrl = data.imgs[0].url
       const tracks = data.tracks.items.map(item => {
         const track = item.track

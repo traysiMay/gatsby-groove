@@ -1,22 +1,27 @@
-export default (contextUri, trackUri, givenDeviceId) => {
+export default (contextUri, playlistTrackUri, givenDeviceId, singleTrack) => {
   let body = {}
   if (contextUri) {
     body["context_uri"] = contextUri
   }
-  if (trackUri) {
-    body["offset"] = { uri: trackUri }
+  if (playlistTrackUri) {
+    body["offset"] = { uri: playlistTrackUri }
+  }
+  if (singleTrack) {
+    body["uris"] = [singleTrack]
   }
   const deviceId = givenDeviceId
     ? givenDeviceId
     : localStorage.getItem("deviceId")
-
-  fetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, {
-    method: "PUT",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-    body: JSON.stringify(body),
-  })
-    .then(console.log)
+  return fetch(
+    `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(body),
+    }
+  )
+    .then(r => r.json())
     .catch(console.log)
 }

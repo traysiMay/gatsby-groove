@@ -25,7 +25,6 @@ const Player = ({
   //     </div>
   //   )
   // }
-  console.log(spotifyDevices)
   if (noAuth) {
     return (
       <div className={playerStyles.wrapper}>
@@ -56,14 +55,13 @@ const Player = ({
       </div>
       <div className={playerStyles.deviceList}>
         {spotifyDevices.map(d => {
-          console.log(chosenSpotifyDevice)
           return (
             <div
+              key={d.id}
               style={{
-                color: chosenSpotifyDevice === d.id ? "green" : "white",
+                color: chosenSpotifyDevice === d.id ? "#88ff88" : "white",
               }}
               onClick={() => {
-                console.log(d.id)
                 chooseSpotifyDevice(d.id)
               }}
             >

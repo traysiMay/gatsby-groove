@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useRef } from "react"
 import PlayerComponent from "../components/player"
 import pausePlaylistTrack from "../services/pause-playlist-track"
 import resumePlaylistTrack from "../services/start-playing-playlist"
 import nextPlaylistTrack from "../services/next-playlist-track"
 import previousPlaylistTrack from "../services/previous-playlist-track"
+import getNewToken from "../services/get-new-token"
 import playerStyles from "./player.module.scss"
 import getUser from "../services/get-user"
 import { myContext } from "../../wrap-with-provider"
 import getUserDevices from "../services/get-user-devices"
+import getUserCurrentlyPlaying from "../services/get-user-currently-playing"
 const Player = () => {
   const [track, setTrack] = useState("")
   const [isPlaying, setIsPlaying] = useState(false)
@@ -17,25 +19,69 @@ const Player = () => {
   const [playerExists, setPlayerExists] = useState(0)
   const [isUserAuth, setIsUserAuth] = useState(false)
 
-  const context = useContext(myContext)
+  // Shitty force rerender
+  const [playerWhatever, setPlayerWhatever] = useState(0)
 
+  const playerRef = useRef()
+
+  const context = useContext(myContext)
   const togglePlay = () => {
     if (isPlaying) {
-      pausePlaylistTrack()
+      pausePlaylistTrack().then(() => {
+        setPlayerWhatever(playerWhatever + 1)
+      })
     } else {
-      resumePlaylistTrack()
+      resumePlaylistTrack().then(() => setPlayerWhatever(playerWhatever + 1))
     }
   }
 
   useEffect(() => {
+    let interval
+    // & not the web player
+    if (
+      context.groovePlayer !== context.chosenSpotifyDevice &&
+      context.spotifyDevices &&
+      context.spotifyDevices.length > 0
+    ) {
+      interval = setInterval(() => {
+        getUserCurrentlyPlaying().then(data => {
+          console.log("polling")
+          const playing = data.is_playing
+          setIsPlaying(playing)
+          setTrack(data.item)
+        })
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [
+    context && context.groovePlayer && context && context.chosenSpotifyDevice,
+    playerWhatever,
+  ])
+
+  useEffect(() => {
     // handle new token events
+    let player = playerRef.current
     const phandlerEvent = event => {
       console.log("player storage event", console.log(event))
       if (event.key !== "token") return
       getUser(event.newValue).then(data => {
         if (data.error) {
           console.log("invalid token")
-          setIsUserAuth(false)
+          getNewToken()
+            .then(data => {
+              localStorage.setItem("token", data.token)
+              var player = playerRef.current
+              player.current = new window.Spotify.Player({
+                name: "Groove Devotion Player",
+                getOAuthToken: cb => {
+                  cb(data.token)
+                },
+              })
+              player.connect()
+            })
+            .catch(error => {
+              setIsUserAuth(false)
+            })
         } else {
           setIsUserAuth(true)
           setToken(event.newValue)
@@ -49,7 +95,7 @@ const Player = () => {
       if (window !== "undefined") {
         // listener for token changes
         // player init
-        let player = new window.Spotify.Player({
+        player = new window.Spotify.Player({
           name: "Groove Devotion Player",
           getOAuthToken: cb => {
             cb(token)
@@ -69,10 +115,9 @@ const Player = () => {
 
         getUserDevices().then(data => {
           if (data.error) return
-          context.addSpotifyDevice(data.devices)
+          context.addSpotifyDevices(data.devices)
         })
 
-        // set player to max retries because it exists
         setPlayerExists(5)
 
         // Error handling
@@ -82,17 +127,15 @@ const Player = () => {
         player.addListener("authentication_error", async ({ message }) => {
           console.log("auth error")
           const refreshToken = localStorage.getItem("rToken")
+          console.log(refreshToken)
           if (refreshToken) {
-            const newToken = await fetch(
-              `${
-                process.env.GATSBY_SERVER_URL
-              }/new-token?refreshToken=${localStorage.getItem("rToken")}`
-            ).then(r => r.json())
+            const newToken = await getNewToken()
+            console.log(newToken)
             localStorage.setItem("token", newToken.token)
             player = new window.Spotify.Player({
               name: "Groove Devotion Player",
               getOAuthToken: cb => {
-                cb(token)
+                cb(newToken.token)
               },
             })
             player.connect()
@@ -111,6 +154,7 @@ const Player = () => {
 
         // Playback status updates
         player.addListener("player_state_changed", state => {
+          if (!state) return
           const currentTrack = state.track_window.current_track
           const paused = state.paused
           try {
@@ -133,8 +177,9 @@ const Player = () => {
         player.addListener("ready", ({ device_id }) => {
           console.log("Ready with Device ID", device_id)
           localStorage.setItem("deviceId", device_id)
+          context && context.setGroovePlayer(device_id)
           getUserDevices().then(data => {
-            context.addSpotifyDevice(data.devices)
+            context.addSpotifyDevices(data.devices)
           })
         })
 
@@ -160,7 +205,7 @@ const Player = () => {
     <div className={playerStyles.container}>
       <PlayerComponent
         chosenSpotifyDevice={context && context.chosenSpotifyDevice}
-        chooseSpotifyDevice={context && context.chooseSpotifyDevice}
+        chooseSpotifyDevice={context && context.changeSpotifyDevice}
         currentTrack={track}
         device={context && context.device}
         isPlaying={isPlaying}

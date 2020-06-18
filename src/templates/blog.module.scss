@@ -1,5 +1,8 @@
 .container {
-  margin: 0.5rem;
+  // margin: 0.5rem;
+  p {
+    font-size: 1.5rem;
+  }
   img {
     // filter: saturate(4.5);
     // width: 50%;
@@ -27,7 +30,11 @@
   // margin-top: -5rem;
   // font-size: 3rem;
 }
-
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 3rem;
+  }
+}
 @media screen and (min-width: 768px) {
   .container {
     img {
