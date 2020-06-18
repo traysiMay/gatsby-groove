@@ -66,6 +66,7 @@ const Player = () => {
   }, [
     context && context.groovePlayer && context && context.chosenSpotifyDevice,
     playerWhatever,
+    track,
   ])
 
   useEffect(() => {
