@@ -26,7 +26,6 @@ const IndexPage = props => {
   const [user, setUser] = useState()
 
   useEffect(() => {
-    fetch("https://groove-server.glitch.me", { mode: "no-cors" })
     const currentToken = localStorage.getItem("token")
     const refreshToken = localStorage.getItem("r_token")
     if (currentToken) {

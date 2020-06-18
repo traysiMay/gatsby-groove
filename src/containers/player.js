@@ -47,6 +47,16 @@ const Player = () => {
         getUserCurrentlyPlaying().then(data => {
           console.log("polling")
           const playing = data.is_playing
+          try {
+            const cPlaying = document.querySelector(".playing")
+            if (cPlaying) {
+              cPlaying.classList.remove("playing")
+            }
+            const element = document.getElementById(data.item.id)
+            element.classList.add("playing")
+          } catch (err) {
+            console.log("cant find this boy")
+          }
           setIsPlaying(playing)
           setTrack(data.item)
         })

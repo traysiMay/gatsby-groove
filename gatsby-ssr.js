@@ -22,4 +22,4 @@ export const wrapPageElement = ({ element, props }) => {
   )
 }
 
-export const wrapRootelement = wrapWithProvider
+export const wrapRootElement = wrapWithProvider
