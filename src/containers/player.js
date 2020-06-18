@@ -65,6 +65,7 @@ const Player = () => {
     return () => clearInterval(interval)
   }, [
     context && context.groovePlayer && context && context.chosenSpotifyDevice,
+    context && context.spotifyDevices,
     playerWhatever,
     track,
   ])
