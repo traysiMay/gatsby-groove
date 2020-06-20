@@ -20,13 +20,9 @@ const Layout = ({ children, pageTitle }) => {
         }
       }
     })
+    // eslint-disable-next-line
   }, [])
   useEffect(() => {
-    const currentToken = localStorage.getItem("token")
-    const refreshToken = localStorage.getItem("r_token")
-    // if (currentToken) {
-    //   getUser(currentToken).then(data => setUser(data.display_name))
-    // }
     if (window && window.location.href.includes("token")) {
       const token = getQueryParam("token")
       const rToken = getQueryParam("r_token")
@@ -34,14 +30,6 @@ const Layout = ({ children, pageTitle }) => {
       localStorage.setItem("rToken", rToken)
       window.close()
     }
-    // const handlerEvent = event => {
-    //   console.log("index storage event")
-    //   if (event.key !== "token") return
-    //   getUser(event.newValue).then(data => setUser(data.display_name))
-    // }
-    // if (window) window.addEventListener("storage", handlerEvent, false)
-
-    // return () => window.removeEventListener("storage", handlerEvent, false)
   }, [])
   return (
     <div className={layoutStyles.container}>

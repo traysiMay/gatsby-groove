@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React from "react"
 import playerStyles from "./player.module.scss"
 import Play from "../icons/play"
 import Pause from "../icons/pause"
@@ -9,7 +9,6 @@ const Player = ({
   chosenSpotifyDevice,
   chooseSpotifyDevice,
   currentTrack,
-  device,
   isPlaying,
   next,
   noAuth,
@@ -45,11 +44,18 @@ const Player = ({
           : "Time to find a Playlist!"}
       </div>
       <div className={playerStyles.controls}>
-        <div onClick={previous}>
+        <div onClick={previous} onKeyDown={previous} role="button" tabIndex={0}>
           <Backward />
         </div>
-        <div onClick={togglePlay}>{!isPlaying ? <Play /> : <Pause />}</div>
-        <div onClick={next}>
+        <div
+          onClick={togglePlay}
+          onKeyDown={togglePlay}
+          role="button"
+          tabIndex={-1}
+        >
+          {!isPlaying ? <Play /> : <Pause />}
+        </div>
+        <div onClick={next} onKeyDown={next} role="button" tabIndex={-2}>
           <Forward />
         </div>
       </div>
@@ -64,6 +70,11 @@ const Player = ({
               onClick={() => {
                 chooseSpotifyDevice(d.id)
               }}
+              onKeyDown={() => {
+                chooseSpotifyDevice(d.id)
+              }}
+              role="button"
+              tabIndex={-3}
             >
               {d.name}
             </div>

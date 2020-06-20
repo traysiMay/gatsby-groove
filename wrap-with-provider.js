@@ -44,6 +44,8 @@ const Provider = props => {
         setCheckSpotify,
         setCheckAuthorized,
         setGroovePlayer,
+        setDevice,
+        setPlayerInited,
       }}
     >
       {props.children}

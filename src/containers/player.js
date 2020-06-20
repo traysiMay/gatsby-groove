@@ -63,8 +63,11 @@ const Player = () => {
       }, 1000)
     }
     return () => clearInterval(interval)
+    // eslint-disable-next-line
   }, [
+    // eslint-disable-next-line
     context && context.groovePlayer && context && context.chosenSpotifyDevice,
+    // eslint-disable-next-line
     context && context.spotifyDevices,
     playerWhatever,
     track,
@@ -211,6 +214,7 @@ const Player = () => {
     return () => {
       window.removeEventListener("storage", phandlerEvent, false)
     }
+    // eslint-disable-next-line
   }, [token, playerExists])
 
   return (

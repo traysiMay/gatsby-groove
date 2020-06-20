@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useContext } from "react"
-import pausePlaylist from "../services/pause-playlist-track"
+import React, { useEffect, useState, useContext } from "react"
 import startPlayingPlaylist from "../services/start-playing-playlist"
 import getPlaylistTracks from "../services/get-playlist-tracks"
 import Layout from "../components/layout"
@@ -34,6 +33,20 @@ const Playlists = () => {
                   context && context.chosenSpotifyDevice
                 )
               }}
+              onKeyDown={() => {
+                if (context && !context.chosenSpotifyDevice) {
+                  console.log("HENLO")
+                  context.chooseSpotifyDevice(localStorage.getItem("deviceId"))
+                  context.setGroovePlayer(localStorage.getItem("deviceId"))
+                }
+                startPlayingPlaylist(
+                  playlistURI,
+                  track.trackUri,
+                  context && context.chosenSpotifyDevice
+                )
+              }}
+              role="button"
+              tabIndex={0}
               key={track.name}
               id={track.trackUri.split(":")[2]}
               className={`${playlistStyles.trackWrap}`}

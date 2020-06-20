@@ -25,7 +25,6 @@ const AboutPage = props => {
   const options = {
     renderNode: {
       [BLOCKS.EMBEDDED_ASSET]: node => {
-        const alt = node.data.target.fields.title["en-US"]
         const image = node.data.target.fields.file["en-US"]
         const width = image.details.image.width
         return (
@@ -43,6 +42,7 @@ const AboutPage = props => {
           `,
               sizes: "(max-width: 630px) 100vw, 630px",
             }}
+            alt="wat"
           />
         )
       },

@@ -16,16 +16,24 @@ const PlaylistEmbed = ({ uri }) => {
     <div>
       {trackList.length > 0 && img && (
         <div className={playlistEmbedStyles.container}>
-          <div onClick={() => startPlayingPlaylist(uri)}>
-            <img className={playlistEmbedStyles.img} src={img}></img>
+          <div
+            onClick={() => startPlayingPlaylist(uri)}
+            onKeyDown={() => startPlayingPlaylist(uri)}
+            tabIndex={0}
+            role="button"
+          >
+            <img className={playlistEmbedStyles.img} src={img} alt="wat"></img>
           </div>
           <div className={playlistEmbedStyles.trackList}>
-            {trackList.map(track => {
+            {trackList.map((track, i) => {
               return (
                 <div
                   className={playlistEmbedStyles.track}
                   id={track.trackUri.split(":")[2]}
                   onClick={() => startPlayingPlaylist(uri, track.trackUri)}
+                  onKeyDown={() => startPlayingPlaylist(uri, track.trackUri)}
+                  role="button"
+                  tabIndex={(i + 1) * -1}
                   key={track.name + track.artists}
                 >
                   {track.name}
