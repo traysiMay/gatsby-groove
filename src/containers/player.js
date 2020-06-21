@@ -66,7 +66,9 @@ const Player = () => {
     // eslint-disable-next-line
   }, [
     // eslint-disable-next-line
-    context && context.groovePlayer && context && context.chosenSpotifyDevice,
+    context && context.groovePlayer,
+    // eslint-disable-next-line
+    context && context.chosenSpotifyDevice,
     // eslint-disable-next-line
     context && context.spotifyDevices,
     playerWhatever,
