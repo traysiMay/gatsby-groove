@@ -1,53 +1,47 @@
-import React, { useState, useEffect } from "react"
-import "../styles/index.scss"
+import React, { Fragment } from "react"
+import { graphql, useStaticQuery } from "gatsby"
 import Layout from "../components/layout"
-import Head from "../components/head"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-import getUser from "../services/get-user"
+import BlogItem from "../components/blogItem"
 
-export const query = graphql`
-  query {
-    allContentfulHomePlaceholder {
-      edges {
-        node {
-          content {
-            json
+const BlogPage = () => {
+  const data = useStaticQuery(graphql`
+    query {
+      allContentfulBlogPost(sort: { fields: publishedDate, order: DESC }) {
+        edges {
+          node {
+            author {
+              name
+            }
+            title
+            slug
+            publishedDate(formatString: "MMMM Do, YYYY")
+            body {
+              body
+            }
+            image {
+              resize(width: 300) {
+                src
+              }
+            }
           }
         }
       }
     }
-  }
-`
-
-const IndexPage = props => {
-  const [user, setUser] = useState()
-
-  useEffect(() => {
-    const currentToken = localStorage.getItem("token")
-    if (currentToken) {
-      getUser(currentToken).then(data => setUser(data.display_name))
-    }
-
-    const handlerEvent = event => {
-      console.log("index storage event")
-      if (event.key !== "token") return
-      getUser(event.newValue).then(data => setUser(data.display_name))
-    }
-    if (window) window.addEventListener("storage", handlerEvent, false)
-
-    return () => window.removeEventListener("storage", handlerEvent, false)
-  }, [])
-  const json =
-    props.data.allContentfulHomePlaceholder.edges[0].node.content.json
+  `)
+  const posts = data.allContentfulBlogPost.edges
   return (
-    <Layout>
-      <Head title="Home" />
-      <div className="whatever">
-        {user && `Oh Hi! ${user} :D`}
-        {documentToReactComponents(json)}
-      </div>
+    <Layout pageTitle={""}>
+      {posts.map(p => {
+        const post = p.node
+        const img = post.image.resize.src
+        return (
+          <Fragment key={post.slug}>
+            <BlogItem post={post} img={img} />
+          </Fragment>
+        )
+      })}
     </Layout>
   )
 }
 
-export default IndexPage
+export default BlogPage

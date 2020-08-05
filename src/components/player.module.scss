@@ -1,3 +1,15 @@
+.connect-container {
+  font-size: 1rem;
+  background: black;
+  color: white;
+  display: flex;
+}
+
+.connect-wrapper {
+  display: flex;
+  margin: auto;
+  padding: 8px;
+}
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;

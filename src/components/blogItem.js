@@ -14,15 +14,14 @@ const BlogItem = ({ img, post }) => {
       onKeyDown={goToSlug}
     >
       <div className={blogItemStyles.firstBox}>
+        <img src={img} alt="freg" />
         <div className={blogItemStyles.title}>{post.title}</div>
         {/* <div className={blogItemStyles.date}>{post.publishedDate}</div> */}
-        <div className={blogItemStyles.author}>
+        {/* <div className={blogItemStyles.author}>
           <span style={{ fontSize: "1rem" }}>by</span> {post.author.name}
-        </div>
+        </div> */}
       </div>
-      <div>
-        <img src={img} alt="freg" />
-      </div>
+      <div></div>
     </div>
   )
 }

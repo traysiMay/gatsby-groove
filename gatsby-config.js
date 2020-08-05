@@ -44,5 +44,17 @@ module.exports = {
         accessToken: process.env.accessToken,
       },
     },
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Groove Devotion`,
+        short_name: `groove-devotion`,
+        start_url: `/`,
+        background_color: `#000000`,
+        theme_color: `#FF0000`,
+        display: `minimal-ui`,
+        icon: `static/logo.svg`,
+      },
+    },
   ],
 }

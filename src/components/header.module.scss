@@ -16,7 +16,20 @@
   display: block;
   margin-top: -71px;
 }
+.logo-wrap {
+  margin: -43px auto 9px;
+  width: 150px;
+}
+.nav {
+  margin: auto;
+  text-align: center;
 
+  a {
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+  }
+}
 .nav-list {
   position: relative;
   background: black;

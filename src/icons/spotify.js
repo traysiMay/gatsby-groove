@@ -1,4 +1,6 @@
 import React from "react"
+import SVG from "react-inlinesvg"
+import greenSpotify from "./spotify.svg"
 import spotifyStyles from "./spotify.module.scss"
 const Spotify = ({ stroke = "#000000" }) => {
   const spotAuth = () => {
@@ -19,6 +21,17 @@ const Spotify = ({ stroke = "#000000" }) => {
         "width=500, height=400"
       )
   }
+  return (
+    <div
+      role="button"
+      tabIndex={-2}
+      onKeyDown={spotAuth}
+      onClick={spotAuth}
+      className={spotifyStyles.container}
+    >
+      <SVG src={greenSpotify} />
+    </div>
+  )
   return (
     <div
       role="button"

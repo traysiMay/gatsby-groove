@@ -1,13 +1,16 @@
 .container {
-  display: flex;
+  // display: flex;
   position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  // grid-template-columns: 1fr 1fr;
+  margin: auto;
   margin-top: 80px;
   &:first-of-type {
     margin-top: 20px;
   }
   img {
+    margin: auto;
+    display: block;
     opacity: 0.9;
     filter: saturate(4.5);
   }
@@ -15,15 +18,15 @@
 }
 
 .first-box {
-  // margin: auto;
-  margin-right: 10px;
+  margin: auto;
+  text-align: center;
+  // margin-right: 10px;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 600;
-  width: 90%;
-  // margin: auto;
+  margin-top: 24px;
 }
 
 .date {

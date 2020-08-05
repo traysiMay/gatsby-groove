@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { Link, graphql, useStaticQuery } from "gatsby"
+import SVG from "react-inlinesvg"
+import logo from "../../static/logo.svg"
 import headerStyles from "./header.module.scss"
 import TimeOfDay from "./timeofday"
 
@@ -17,26 +19,26 @@ const Header = () => {
     const time = new Date()
     const mins = time.getMinutes()
     const hrs = time.getHours()
-
+    console.log(hrs)
     if (hrs > 5 && hrs < 15) {
       setTimeOfDay("morning")
-    } else if (hrs > 15 && hrs < 20) {
+    } else if (hrs >= 15 && hrs < 20) {
       setTimeOfDay("afternoon")
     } else {
       setTimeOfDay("night")
     }
 
-    const numLines = mins + hrs * 60
-    const r = 200
-    const step = Math.PI / (60 * 24)
-    for (let i = 0; i <= numLines; i++) {
-      const x = r * Math.cos(step * i)
-      const y = r * Math.sin(step * i)
-      ctx.beginPath()
-      ctx.moveTo(200, 0)
-      ctx.lineTo(x + 200, y - 20)
-      ctx.stroke()
-    }
+    // const numLines = mins + hrs * 60
+    // const r = 200
+    // const step = Math.PI / (60 * 24)
+    // for (let i = 0; i <= numLines; i++) {
+    //   const x = r * Math.cos(step * i)
+    //   const y = r * Math.sin(step * i)
+    //   ctx.beginPath()
+    //   ctx.moveTo(200, 0)
+    //   ctx.lineTo(x + 200, y - 20)
+    //   ctx.stroke()
+    // }
   }, [])
 
   const data = useStaticQuery(graphql`
@@ -60,9 +62,18 @@ const Header = () => {
         className={headerStyles.canvas}
       />
       <Link className="link" to="/">
-        <div className={headerStyles.title}>{data.site.siteMetadata.title}</div>
+        <div className={headerStyles.logoWrap}>
+          <SVG src={logo} />
+        </div>
+        {/* <div className={headerStyles.title}>{data.site.siteMetadata.title}</div> */}
       </Link>
-      <div
+      <div className={headerStyles.nav}>
+        <Link to="/playlists">PLAYLISTS</Link>
+        <Link to="/mixes">MIXES</Link>
+        <Link to="/culture">CULTURE</Link>
+        <Link to="/about">ABOUT</Link>
+      </div>
+      {/* <div
         role="button"
         tabIndex={0}
         onKeyDown={!display ? openDropDown : () => {}}
@@ -106,7 +117,7 @@ const Header = () => {
             </li>
           </ul>
         )}
-      </div>
+      </div> */}
     </header>
   )
 }

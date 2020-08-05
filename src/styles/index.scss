@@ -2,11 +2,15 @@
   font-family: Gotham-Medium;
   src: url("./Gotham-Medium.woff");
 }
+@font-face {
+  font-family: Grotesk;
+  src: url("./grotesk/Grotesk.otf");
+}
 html {
   // font-size: 10px;
 }
 body {
-  font-family: Gotham-Medium;
+  font-family: Grotesk;
   margin: 0;
 }
 .link {

@@ -26,10 +26,14 @@ const Player = ({
   // }
   if (noAuth) {
     return (
-      <div className={playerStyles.wrapper}>
-        <div>Wanna Use the Player?</div>
-        <div style={{ width: 100, margin: "auto" }}>
-          <Spotify stroke={"#FFFFFF"} />
+      <div className={playerStyles.connectContainer}>
+        <div className={playerStyles.connectWrapper}>
+          <div style={{ lineHeight: "35px", textDecoration: "underline" }}>
+            Connect With Spotify
+          </div>
+          <div style={{ width: 40 }}>
+            <Spotify stroke={"#FFFFFF"} />
+          </div>
         </div>
       </div>
     )
